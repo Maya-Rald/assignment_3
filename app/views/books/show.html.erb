@@ -1,0 +1,33 @@
+<!--books/show-->
+
+<% if flash[:notice] %>
+  <p class="notice" style="color: green;"><%= flash[:notice] %></p>
+<% end %>
+
+
+<%= render 'books/list', { user: @user, book: @book } %>
+
+<div class="col-xs-9">
+  <h2>Book detail</h2>
+
+
+  <table class="table">
+      <tbody>
+        <tr>
+          <td>
+            <%= attachment_image_tag @books.user, :profile_image, size: "40x40", format: 'jpeg', class: "profile-img", fallback: "no_image.jpg" %>
+            <br /><%= link_to @user.name, user_path(@user.id) %>
+          </td>
+          <td><%= link_to @books.title, book_path(@books.id) %></td>
+          <td><%= @books.body %></td>
+
+          <% if @books.user == current_user %>
+            <td><%= link_to "Edit", edit_book_path(@books), class: "btn-sm btn-success" %></td>
+            <td><%= link_to "Destroy", book_path(@books), method: :delete, class: "btn-sm btn-danger" %></td>
+          <% end %>
+
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
